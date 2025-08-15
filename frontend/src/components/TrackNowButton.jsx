@@ -1,12 +1,27 @@
 import React from 'react'
 import './TrackNowButton.css'
+import { apiService, handleApiError } from '../services/api'
 
 function TrackNowButton({ isTracking, setIsTracking, setLoading }) {
+  console.log('🔘 TrackNowButton rendered with props:', { isTracking, setIsTracking: !!setIsTracking, setLoading: !!setLoading })
+  
   const handleTrackNow = async () => {
-    setLoading(true)
-    // API call will be implemented here
-    setIsTracking(true)
-    setLoading(false)
+    try {
+      setLoading(true)
+      
+      // Call the API to start tracking
+      const result = await apiService.startTracking()
+      
+      console.log('Tracking started:', result)
+      setIsTracking(true)
+      
+    } catch (error) {
+      console.error('Failed to start tracking:', error)
+      const errorMessage = handleApiError(error)
+      alert(`Failed to start tracking: ${errorMessage}`)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
