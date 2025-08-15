@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GitHub Commit Tracker with AI Analysis
 
 A microservices-based application that tracks GitHub commits in real-time and provides AI-powered analysis using Ollama and CodeLlama.
@@ -30,3 +31,6 @@ A microservices-based application that tracks GitHub commits in real-time and pr
 ## 🔧 Development
 
 See individual service directories for development instructions.
+=======
+# Microserivices-With-Agent
+>>>>>>> 5fc50fa47b9562f3154101966d36338609b46b59
