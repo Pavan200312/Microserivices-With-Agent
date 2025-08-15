@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  # Database
+  postgres:
+    image: postgres:15
+    container_name: commit-tracker-postgres
+    environment:
+      POSTGRES_DB: commit_tracker
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - commit-tracker-network
+
+  # Database Management
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: commit-tracker-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - commit-tracker-network
+
+  # AI Model Server
+  ollama:
+    image: ollama/ollama
+    container_name: commit-tracker-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - commit-tracker-network
+
+  # GitHub Service
+  github-service:
+    build: ./services/github-service
+    container_name: commit-tracker-github-service
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://admin:password@postgres:5432/commit_tracker
+      - AI_SERVICE_URL=http://ai-service:8002
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - SERVICE_PORT=8001
+    depends_on:
+      - postgres
+      - ai-service
+    networks:
+      - commit-tracker-network
+
+  # AI Service
+  ai-service:
+    build: ./services/ai-service
+    container_name: commit-tracker-ai-service
+    ports:
+      - "8002:8002"
+    environment:
+      - DATABASE_URL=postgresql://admin:password@postgres:5432/commit_tracker
+      - OLLAMA_URL=http://ollama:11434
+      - SERVICE_PORT=8002
+    depends_on:
+      - postgres
+      - ollama
+    networks:
+      - commit-tracker-network
+
+  # API Gateway
+  api-gateway:
+    build: ./services/api-gateway
+    container_name: commit-tracker-api-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://admin:password@postgres:5432/commit_tracker
+      - GITHUB_SERVICE_URL=http://github-service:8001
+      - AI_SERVICE_URL=http://ai-service:8002
+      - SERVICE_PORT=8000
+    depends_on:
+      - postgres
+      - github-service
+      - ai-service
+    networks:
+      - commit-tracker-network
+
+  # Frontend
+  frontend:
+    build: ./frontend
+    container_name: commit-tracker-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    depends_on:
+      - api-gateway
+    networks:
+      - commit-tracker-network
+
+volumes:
+  postgres_data:
+  ollama_data:
+
+networks:
+  commit-tracker-network:
+    driver: bridge

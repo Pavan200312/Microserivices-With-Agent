@@ -1,0 +1,26 @@
+/* TrackNowButton CSS */
+.track-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.track-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.track-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.track-button.tracking {
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+}
