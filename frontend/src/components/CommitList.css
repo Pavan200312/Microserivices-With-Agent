@@ -1,4 +1,25 @@
 /* CommitList CSS */
+.commit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.refresh-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.refresh-button:hover {
+  background: #0056b3;
+}
+
 .commit-list {
   display: flex;
   flex-direction: column;
@@ -11,6 +32,12 @@
   border-radius: 8px;
   padding: 1rem;
   text-align: left;
+  transition: all 0.2s ease;
+}
+
+.commit-item:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateY(-1px);
 }
 
 .commit-hash {
@@ -18,12 +45,17 @@
   font-size: 0.9rem;
   color: #6c757d;
   margin-bottom: 0.5rem;
+  background: #e9ecef;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
 }
 
 .commit-message {
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: #212529;
+  font-size: 1rem;
 }
 
 .commit-author {
@@ -35,4 +67,53 @@
 .commit-timestamp {
   font-size: 0.8rem;
   color: #adb5bd;
+  margin-bottom: 0.25rem;
+}
+
+.commit-repository {
+  font-size: 0.8rem;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.loading-spinner {
+  text-align: center;
+  font-size: 2rem;
+  margin: 2rem 0;
+}
+
+.error-message {
+  text-align: center;
+  color: #dc3545;
+  margin: 2rem 0;
+}
+
+.retry-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.retry-button:hover {
+  background: #c82333;
+}
+
+.no-commits {
+  text-align: center;
+  color: #6c757d;
+  margin: 2rem 0;
+}
+
+.no-commits ul {
+  text-align: left;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.no-commits li {
+  margin-bottom: 0.5rem;
 }

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-08-15 15:33:27",
+  "services": {
+    "github": {
+      "path": "services/github-service",
+      "tests_exist": true,
+      "status": "UNKNOWN"
+    },
+    "api-gateway": {
+      "path": "services/api-gateway",
+      "tests_exist": true,
+      "status": "UNKNOWN"
+    },
+    "ai": {
+      "path": "services/ai-service",
+      "tests_exist": true,
+      "status": "UNKNOWN"
+    }
+  },
+  "functional_tests": false,
+  "overall_status": "PENDING"
+}

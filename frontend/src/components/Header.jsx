@@ -2,6 +2,7 @@ import React from 'react'
 import './Header.css'
 
 function Header() {
+  console.log('📋 Header component rendered')
   return (
     <header className="header">
       <div className="container">

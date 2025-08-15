@@ -1,19 +1,13 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
-import Dashboard from './components/Dashboard'
-import Header from './components/Header'
+import SimpleDashboard from './components/SimpleDashboard'
 
 function App() {
+  console.log('🚀 App component rendered')
   return (
-    <Router>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-        </Routes>
-      </div>
-    </Router>
+    <div className="App">
+      <SimpleDashboard />
+    </div>
   )
 }
 
