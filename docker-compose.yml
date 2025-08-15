@@ -31,7 +31,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://postgres:191089193@host.docker.internal:5432/new%20DB
       - AI_SERVICE_URL=http://ai-service:8002
-      - GITHUB_TOKEN=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
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
       - SERVICE_PORT=8001
     depends_on:
       - ai-service
